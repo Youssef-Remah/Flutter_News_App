@@ -1,8 +1,11 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_app/layout/news_layout.dart';
+import 'shared/bloc_observer.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -19,6 +22,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
           ),
           backgroundColor: Colors.white,
           elevation: 0.0,
@@ -31,7 +35,12 @@ class MyApp extends StatelessWidget {
 
         ),
         scaffoldBackgroundColor: Colors.white,
-
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          elevation: 50.0,
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.deepOrange,
+          type: BottomNavigationBarType.fixed,
+        ),
       ),
       home: NewsLayout(),
     );
