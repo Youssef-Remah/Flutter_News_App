@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/modules/business/business_screen.dart';
 import 'package:news_app/modules/science/science_screen.dart';
-import 'package:news_app/modules/settings/settings_screen.dart';
 import 'package:news_app/modules/sports/sports_screen.dart';
 import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
@@ -30,10 +29,6 @@ class NewsCubit extends Cubit<NewsStates>{
       icon: Icon(Icons.science),
       label: 'Science',
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
-      label: 'Settings',
-    ),
   ];
 
   List<Widget> bottomNavBarScreens =
@@ -41,7 +36,6 @@ class NewsCubit extends Cubit<NewsStates>{
     BusinessScreen(),
     SportsScreen(),
     ScienceScreen(),
-    SettingsScreen(),
   ];
 
   List<dynamic> businessArticles= [];
@@ -102,5 +96,20 @@ class NewsCubit extends Cubit<NewsStates>{
       scienceArticles = value.data['articles'];
       emit(NewsGetScienceSuccessState());
     }).catchError((error) => print(error.toString()));
+  }
+}
+
+class ThemeCubit extends Cubit<NewsStates>{
+
+  ThemeCubit() : super(NewsInitialState());
+
+  static ThemeCubit get(context) => BlocProvider.of(context);
+
+  bool isDarkTheme = false;
+
+  void changeThemeMode(){
+    isDarkTheme = !isDarkTheme;
+
+    emit(ChangeThemeModeState());
   }
 }

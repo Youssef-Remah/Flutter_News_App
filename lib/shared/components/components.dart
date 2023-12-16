@@ -27,11 +27,8 @@ Widget buildArticleItem({
                   borderRadius: BorderRadius.circular(10.0),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                        (imageUrl == null)?
-                        'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png':
-                        imageUrl
-                    ),
+                    image: (imageUrl == null)? const AssetImage('lib/assets/images/image_not_found.png') :
+                    NetworkImage(imageUrl) as ImageProvider<Object>,
                   )
               ),
             ),
@@ -49,18 +46,13 @@ Widget buildArticleItem({
                   '${articleTitle}',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Text(
                   '${articleDate.substring(0, 10)}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 )
               ],
             ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
-import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({super.key});
@@ -12,7 +11,6 @@ class NewsLayout extends StatelessWidget {
 
     return BlocProvider(
       create: (BuildContext context) => NewsCubit()..getBusiness()..getSports()..getScience(),
-
       child: BlocConsumer<NewsCubit, NewsStates>(
         listener: (BuildContext context, NewsStates state) {  },
         builder: (BuildContext context, NewsStates state) {
@@ -21,13 +19,22 @@ class NewsLayout extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
-              title: Text('News App'),
+              title: const Text('News App'),
               actions:
               [
                 IconButton(
                   onPressed: (){},
-                  icon: Icon(Icons.search),
-                )
+                  icon: const Icon(Icons.search),
+                ),
+                BlocConsumer<ThemeCubit, NewsStates>(
+                  listener: (BuildContext context, NewsStates state) {  },
+                  builder: (BuildContext context, NewsStates state) => IconButton(
+                    onPressed: (){
+                      ThemeCubit.get(context).changeThemeMode();
+                    },
+                    icon: const Icon(Icons.brightness_6_rounded),
+                  ),
+                ),
               ],
             ),
 

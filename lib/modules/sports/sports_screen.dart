@@ -19,7 +19,7 @@ class SportsScreen extends StatelessWidget {
         NewsCubit cubit = NewsCubit.get(context);
 
         return ConditionalBuilder(
-            condition: cubit.sportsArticles.length > 0,
+            condition: cubit.sportsArticles.isNotEmpty,
             builder: (BuildContext context) => ListView.separated(
               itemBuilder: (BuildContext context, int index) => buildArticleItem(
                   context: context,
@@ -29,10 +29,10 @@ class SportsScreen extends StatelessWidget {
                   articleDate: cubit.sportsArticles[index]['publishedAt'],
                   imageUrl: cubit.sportsArticles[index]['urlToImage'],
               ),
-              separatorBuilder: (BuildContext context, int index) => Divider(),
+              separatorBuilder: (BuildContext context, int index) => const Divider(),
               itemCount: cubit.sportsArticles.length,
             ),
-            fallback: (BuildContext context) => Center(child: CircularProgressIndicator(),),
+            fallback: (BuildContext context) => const Center(child: CircularProgressIndicator(),),
         );
 
       },

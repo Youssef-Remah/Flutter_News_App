@@ -20,7 +20,7 @@ class BusinessScreen extends StatelessWidget {
         NewsCubit cubit = NewsCubit.get(context);
 
         return ConditionalBuilder(
-          condition: cubit.businessArticles.length > 0,
+          condition: cubit.businessArticles.isNotEmpty,
           builder: (BuildContext context) => ListView.separated(
             itemBuilder: (BuildContext context, int index) => buildArticleItem(
               context: context,
@@ -30,10 +30,10 @@ class BusinessScreen extends StatelessWidget {
               articleDate: cubit.businessArticles[index]['publishedAt'],
               imageUrl: cubit.businessArticles[index]['urlToImage']
             ),
-            separatorBuilder: (BuildContext context, int index) => Divider(),
+            separatorBuilder: (BuildContext context, int index) => const Divider(),
             itemCount: 15,
           ),
-          fallback: (BuildContext context) => Center(child: CircularProgressIndicator()),
+          fallback: (BuildContext context) => const Center(child: CircularProgressIndicator()),
         );
       },
     );
