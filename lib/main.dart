@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:news_app/layout/news_layout.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
@@ -38,8 +37,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => ThemeCubit()..changeThemeMode(isDarkThemeShared: isDarkTheme),
+    return MultiBlocProvider(
+      providers:
+      [
+        BlocProvider(create: (BuildContext context) => ThemeCubit()..changeThemeMode(isDarkThemeShared: isDarkTheme)),
+        BlocProvider(create: (BuildContext context) => NewsCubit()..getBusiness()..getSports()..getScience()),
+      ],
       child: BlocConsumer<ThemeCubit, NewsStates>(
         listener: (BuildContext context, NewsStates state) {  },
         builder: (BuildContext context, NewsStates state) {

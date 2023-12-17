@@ -42,6 +42,7 @@ class NewsCubit extends Cubit<NewsStates>{
   List<dynamic> businessArticles= [];
   List<dynamic> sportsArticles= [];
   List<dynamic> scienceArticles= [];
+  List<dynamic> searchedArticles= [];
 
   void changeCurrentIndex(int index){
     currentIndex = index;
@@ -97,6 +98,27 @@ class NewsCubit extends Cubit<NewsStates>{
       scienceArticles = value.data['articles'];
       emit(NewsGetScienceSuccessState());
     }).catchError((error) => print(error.toString()));
+  }
+
+  void getSearch({required String value}){
+
+    emit(NewsLoadingState());
+
+    DioHelper.getData(
+        url: 'v2/everything',
+        query: {
+          'q':value,
+          'sortBy':'popularity',
+          'apiKey':'970bca636b994d51ab09cca3cdade332'
+        }).then((value) {
+      //print(value.data.toString());
+      searchedArticles = value.data['articles'];
+      emit(NewsGetSearchSuccessState());
+    }).catchError((error) {
+      emit(NewsGetSearchSuccessState());
+      print(error.toString());
+    });
+
   }
 }
 
