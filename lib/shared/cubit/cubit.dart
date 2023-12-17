@@ -5,6 +5,7 @@ import 'package:news_app/modules/business/business_screen.dart';
 import 'package:news_app/modules/science/science_screen.dart';
 import 'package:news_app/modules/sports/sports_screen.dart';
 import 'package:news_app/shared/cubit/states.dart';
+import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsCubit extends Cubit<NewsStates>{
@@ -107,9 +108,22 @@ class ThemeCubit extends Cubit<NewsStates>{
 
   bool isDarkTheme = false;
 
-  void changeThemeMode(){
-    isDarkTheme = !isDarkTheme;
+  void changeThemeMode({ bool? isDarkThemeShared }){
 
-    emit(ChangeThemeModeState());
+    if(isDarkThemeShared != null)
+    {
+      isDarkTheme = isDarkThemeShared;
+      emit(ChangeThemeModeState());
+    }
+    else
+    {
+      isDarkTheme = !isDarkTheme;
+
+      CacheHelper.saveThemeBoolean(key: 'isDarkTheme', value: isDarkTheme).then((value)
+      {
+        emit(ChangeThemeModeState());
+      });
+    }
   }
+
 }

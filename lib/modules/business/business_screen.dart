@@ -19,21 +19,11 @@ class BusinessScreen extends StatelessWidget {
         double screenHeight = MediaQuery.of(context).size.height;
         NewsCubit cubit = NewsCubit.get(context);
 
-        return ConditionalBuilder(
-          condition: cubit.businessArticles.isNotEmpty,
-          builder: (BuildContext context) => ListView.separated(
-            itemBuilder: (BuildContext context, int index) => buildArticleItem(
-              context: context,
-              screenWidth: screenWidth,
-              screenHeight: screenHeight,
-              articleTitle: cubit.businessArticles[index]['title'],
-              articleDate: cubit.businessArticles[index]['publishedAt'],
-              imageUrl: cubit.businessArticles[index]['urlToImage']
-            ),
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
-            itemCount: 15,
-          ),
-          fallback: (BuildContext context) => const Center(child: CircularProgressIndicator()),
+        return buildArticleList(
+          articles: cubit.businessArticles,
+          context: context,
+          screenWidth: screenWidth,
+          screenHeight: screenHeight,
         );
       },
     );

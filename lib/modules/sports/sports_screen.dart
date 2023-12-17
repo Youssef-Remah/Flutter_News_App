@@ -18,25 +18,13 @@ class SportsScreen extends StatelessWidget {
         double screenHeight = MediaQuery.of(context).size.height;
         NewsCubit cubit = NewsCubit.get(context);
 
-        return ConditionalBuilder(
-            condition: cubit.sportsArticles.isNotEmpty,
-            builder: (BuildContext context) => ListView.separated(
-              itemBuilder: (BuildContext context, int index) => buildArticleItem(
-                  context: context,
-                  screenWidth: screenWidth,
-                  screenHeight: screenHeight,
-                  articleTitle: cubit.sportsArticles[index]['title'],
-                  articleDate: cubit.sportsArticles[index]['publishedAt'],
-                  imageUrl: cubit.sportsArticles[index]['urlToImage'],
-              ),
-              separatorBuilder: (BuildContext context, int index) => const Divider(),
-              itemCount: cubit.sportsArticles.length,
-            ),
-            fallback: (BuildContext context) => const Center(child: CircularProgressIndicator(),),
+        return buildArticleList(
+            articles: cubit.sportsArticles,
+            context: context,
+            screenWidth: screenWidth,
+            screenHeight: screenHeight,
         );
-
       },
-
     );
   }
 }

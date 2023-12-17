@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
 
@@ -61,4 +62,31 @@ Widget buildArticleItem({
       ),
     ),
   );
+}
+
+Widget buildArticleList({
+  required List<dynamic> articles,
+  required BuildContext context,
+  required double screenWidth,
+  required double screenHeight,
+})
+{
+
+  return ConditionalBuilder(
+    condition: articles.isNotEmpty,
+    builder: (BuildContext context) => ListView.separated(
+      itemBuilder: (BuildContext context, int index) => buildArticleItem(
+        context: context,
+        screenWidth: screenWidth,
+        screenHeight: screenHeight,
+        articleTitle: articles[index]['title'],
+        articleDate: articles[index]['publishedAt'],
+        imageUrl: articles[index]['urlToImage'],
+      ),
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      itemCount: articles.length,
+    ),
+    fallback: (BuildContext context) => const Center(child: CircularProgressIndicator(),),
+  );
+
 }

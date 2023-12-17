@@ -22,7 +22,6 @@ class CacheHelper {
     required String key,
   })
   {
-
     return sharedPreferences.getBool(key);
   }
 }

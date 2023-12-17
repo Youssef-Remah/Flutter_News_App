@@ -10,27 +10,41 @@ import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 import 'shared/bloc_observer.dart';
 
-void main() {
+void main() async
+{
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   Bloc.observer = MyBlocObserver();
 
   DioHelper.init();
 
-  CacheHelper.init();
+  await CacheHelper.init();
 
-  runApp(const MyApp());
+  bool? isDarkTheme = CacheHelper.loadThemeBoolean(key: 'isDarkTheme');
+
+  runApp(MyApp(isDarkTheme: isDarkTheme));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+   const MyApp({
+    super.key,
+    this.isDarkTheme,
+  });
+
+  final bool? isDarkTheme;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ThemeCubit(),
+      create: (BuildContext context) => ThemeCubit()..changeThemeMode(isDarkThemeShared: isDarkTheme),
       child: BlocConsumer<ThemeCubit, NewsStates>(
         listener: (BuildContext context, NewsStates state) {  },
-        builder: (BuildContext context, NewsStates state) => MaterialApp(
+        builder: (BuildContext context, NewsStates state) {
+
+          return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: false,
@@ -106,8 +120,10 @@ class MyApp extends StatelessWidget {
             ),
           ),
           themeMode: ThemeCubit.get(context).isDarkTheme? ThemeMode.dark : ThemeMode.light,
+          //themeMode: (isDarkTheme == false || isDarkTheme == null)? ThemeMode.light:ThemeMode.dark,
           home: const NewsLayout(),
-        ),
+        );
+        },
       ),
     );
   }

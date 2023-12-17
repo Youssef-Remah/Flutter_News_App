@@ -18,21 +18,11 @@ class ScienceScreen extends StatelessWidget {
         double screenHeight = MediaQuery.of(context).size.height;
         NewsCubit cubit = NewsCubit.get(context);
 
-        return ConditionalBuilder(
-          condition: cubit.scienceArticles.isNotEmpty,
-          builder: (BuildContext context) => ListView.separated(
-            itemBuilder: (BuildContext context, int index) => buildArticleItem(
-                context: context,
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                articleTitle: cubit.scienceArticles[index]['title'],
-                articleDate: cubit.scienceArticles[index]['publishedAt'],
-                imageUrl: cubit.scienceArticles[index]['urlToImage']
-            ),
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
-            itemCount: 15,
-          ),
-          fallback: (BuildContext context) => const Center(child: CircularProgressIndicator()),
+        return buildArticleList(
+          articles: cubit.scienceArticles,
+          context: context,
+          screenWidth: screenWidth,
+          screenHeight: screenHeight,
         );
       },
     );
