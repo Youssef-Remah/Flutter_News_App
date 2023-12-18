@@ -57,7 +57,8 @@ class SearchScreen extends StatelessWidget {
                       articles: cubit.searchedArticles,
                       context: context,
                       screenWidth: screenWidth,
-                      screenHeight: screenHeight
+                      screenHeight: screenHeight,
+                      isSearch: true,
                   ),
                 ),
               ],

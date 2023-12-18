@@ -51,6 +51,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: false,
+            dividerTheme: DividerThemeData(
+              thickness: 1.5,
+            ),
             appBarTheme: const AppBarTheme(
                 systemOverlayStyle: SystemUiOverlayStyle(
                   statusBarColor: Colors.white,
@@ -87,6 +90,10 @@ class MyApp extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             useMaterial3: false,
+            dividerTheme: DividerThemeData(
+                thickness: 0.5,
+                color: Colors.white,
+            ),
             appBarTheme: const AppBarTheme(
                 systemOverlayStyle: SystemUiOverlayStyle(
                   statusBarColor: Color(0xFF2C2C2C),

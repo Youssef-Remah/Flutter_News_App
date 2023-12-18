@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/modules/web_view/web_view_screen.dart';
+import 'package:news_app/shared/cubit/cubit.dart';
 
 
 Widget buildArticleItem({
@@ -77,6 +78,7 @@ Widget buildArticleList({
   required BuildContext context,
   required double screenWidth,
   required double screenHeight,
+  bool isSearch = false,
 })
 {
 
@@ -95,7 +97,7 @@ Widget buildArticleList({
       separatorBuilder: (BuildContext context, int index) => const Divider(),
       itemCount: articles.length,
     ),
-    fallback: (BuildContext context) => const Center(child: CircularProgressIndicator(),),
+    fallback: (BuildContext context) => (isSearch)? Container() : const Center(child: CircularProgressIndicator(),),
   );
 
 }
