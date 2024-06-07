@@ -1,16 +1,19 @@
-# news_app
+# News App
 
-A new Flutter project.
+The News App is a Flutter-based application that provides users with the latest news across various categories, including Business, Sports, and Science.
 
-## Getting Started
+Users can search for news articles by keywords. Each news article can be viewed in a webview, and the app supports dark mode for a comfortable reading experience in low-light conditions.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Category-Based News:** Access news articles from three main categories: Business, Sports, and Science.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Keyword Search:** Easily search for news articles using keywords.
+
+- **In-App Webview:** Open and read full news articles within the app using a webview.
+
+- **Dark Mode:** Switch to dark mode for a better viewing experience in low-light environments.
+
+### Contact
+If you have any questions or feedback, feel free to reach out at yremah8@gmail.com.
